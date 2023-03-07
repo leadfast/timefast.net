@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>我的IT技术笔记本</title>
+<title></title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
@@ -12,10 +12,9 @@
   <div id="bg"></div>
   <div id="overlay"></div>
   <div id="main">
-    <!-- Header -->
     <header id="header">
-      <h1 style="font-weight: normal;">我的IT技术笔记本</h1>
-      <p>富强、民主、文明、和谐，自由、平等、公正、法治，爱国、敬业、诚信、友善</p>
+      <h1 style="font-weight: normal;" id="title"></h1>
+      <p id="description"></p>
       <nav>
         <ul>
           <li>
@@ -53,6 +52,15 @@
   window.onorientationchange = function () {
     document.body.scrollTop = 0;
   };
+  fetch('./assets/site.json').then(resp => {
+    return resp.json()
+  }).then(resp => {
+    const hostname = window.location.hostname;
+    const data = resp[hostname] || resp['default'];
+    document.title = data.title;
+    document.getElementById('title').innerHTML = data.title
+    document.getElementById('description').innerHTML = data.description
+  })
 </script>
 </body>
 </html>
